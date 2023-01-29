@@ -14,9 +14,9 @@ This is the codebase for our paper Minimizing Trajectory Curvature of ODE-based 
 > **Abstract:** *Recent ODE/SDE-based generative models, such as diffusion models and flow matching, define a generative process as a time reversal of a fixed forward process. Even though these models show impressive performance on large-scale datasets, numerical simulation requires multiple evaluations of a neural network, leading to a slow sampling speed. We attribute the reason to the high curvature of the learned generative trajectories, as it is directly related to the truncation error of a numerical solver. Based on the relationship between the forward process and the curvature, here we present an efficient method of training the forward process to minimize the curvature of generative trajectories without any ODE/SDE simulation. Experiments show that our method achieves a lower curvature than previous models and, therefore, decreased sampling costs while maintaining competitive performance.*
 
 ## Usage
-`train_reverse_2d_joint.py`: Train code on two mode Gaussian example.
+`train_reverse_2d_joint.py`: Training code for two mode Gaussian example.
 
-`train_reverse_img_ddp`: Train code on image data.
+`train_reverse_img_ddp`: Training code for image data.
 
 `fid.py`: Calculate FID score.
 
