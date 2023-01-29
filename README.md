@@ -60,6 +60,13 @@ CIFAR-10 training roughly takes 9 days on 2x1080Ti.
 ## Environment
 Tested environment: PyTorch 1.12.0 / 1.11.0, Python 3.8.5, Windows 10, CUDA 10.1
 
+## Acknowledgement
+We borrow some codes from the implementations of
+- https://arxiv.org/abs/2206.00364
+- https://arxiv.org/abs/2209.03003
+
+. We thank the authors for their great work.
+
 ## Citation
 
 If you find this work useful for your research, please cite our paper:
