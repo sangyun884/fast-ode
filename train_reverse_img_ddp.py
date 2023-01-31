@@ -316,6 +316,16 @@ def main(rank: int, world_size: int, arg):
         
 
 
+    # Load training state in arg.training_state
+    if arg.resume is not None:
+        training_state = torch.load(arg.resume, map_location = 'cpu')
+        start_iter = training_state['iter']
+        flow_model.load_state_dict(training_state['model_state_dict'])
+        if forward_model is not None:
+            forward_model.load_state_dict(training_state['forward_model_state_dict'])
+    else:
+        start_iter = 0
+
     if forward_model is not None:
         forward_model = forward_model.to(device)
     flow_model = flow_model.to(device)
@@ -334,21 +344,10 @@ def main(rank: int, world_size: int, arg):
     if arg.use_ema:
         optimizer = EMA(optimizer, ema_decay=0.9999)
 
-    
-
-    # Load training state in arg.training_state
     if arg.resume is not None:
-        training_state = torch.load(arg.resume)
-        start_iter = training_state['iter']
-        flow_model.load_state_dict(training_state['model_state_dict'])
-        if forward_model is not None:
-            forward_model.load_state_dict(training_state['forward_model_state_dict'])
         optimizer.load_state_dict(training_state['optimizer_state_dict'])
         print(f"Loaded training state from {arg.resume} at iter {start_iter}")
         del training_state
-
-    else:
-        start_iter = 0
     
     # DDP
     flow_model = DDP(flow_model, device_ids=[rank])
