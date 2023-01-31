@@ -35,9 +35,9 @@ def ddp_setup(rank, world_size):
     os.environ["MASTER_ADDR"] = "localhost"
     os.environ["MASTER_PORT"] = "12356"
     # Windows
-    init_process_group(backend="gloo", rank=rank, world_size=world_size)
+    # init_process_group(backend="gloo", rank=rank, world_size=world_size)
     # Linux
-    # init_process_group(backend="nccl", rank=rank, world_size=world_size)
+    init_process_group(backend="nccl", rank=rank, world_size=world_size)
 
 def get_args():
     parser = argparse.ArgumentParser(description='Configs')
@@ -208,12 +208,12 @@ def get_loader(dataset, batchsize, world_size, rank):
         transform = transforms.Compose([transforms.Resize((res, res)),
                                     transforms.ToTensor(),
                                     transforms.Normalize([0.5], [0.5])])
-        dataset_train = dsets.MNIST(root='C:\ML\data\mnist\mnist_train',
+        dataset_train = dsets.MNIST(root='..data/mnist/mnist_train',
                                     train=True,
                                     transform=transform,
 
                                     download=True)
-        dataset_test = dsets.MNIST(root='C:\ML\data\mnist\mnist_test',
+        dataset_test = dsets.MNIST(root='../data/mnist/mnist_test',
                                 train=False,
                                 transform=transform,
                                 download=True)
@@ -223,8 +223,8 @@ def get_loader(dataset, batchsize, world_size, rank):
         transform = transforms.Compose([transforms.Resize((res, res)),
                                     transforms.ToTensor(),
                                     transforms.Normalize([0.5], [0.5])])
-        dataset_train = CelebAHQImgDataset(res, im_dir = 'D:\datasets\CelebAMask-HQ\CelebA-HQ-img-train-64', transform = transform)
-        dataset_test = CelebAHQImgDataset(res, im_dir = 'D:\datasets\CelebAMask-HQ\CelebA-HQ-img-test-64', transform = transform)
+        dataset_train = CelebAHQImgDataset(res, im_dir = '../data/CelebAMask-HQ/CelebA-HQ-img-train-64', transform = transform)
+        dataset_test = CelebAHQImgDataset(res, im_dir = '../data/CelebAMask-HQ/CelebA-HQ-img-test-64', transform = transform)
     elif dataset == 'cifar10':
         input_nc = 3
         res = 32
@@ -232,12 +232,12 @@ def get_loader(dataset, batchsize, world_size, rank):
                                     transforms.RandomHorizontalFlip(),
                                     transforms.ToTensor(),
                                     transforms.Normalize([0.5], [0.5])])
-        dataset_train = dsets.CIFAR10(root='D:\ML\data\cifar10\cifar10_train',
+        dataset_train = dsets.CIFAR10(root='../data/cifar10/cifar10_train',
                                     train=True,
                                     transform=transform,
 
                                     download=True)
-        dataset_test = dsets.CIFAR10(root='D:\ML\data\cifar10\cifar10_test',
+        dataset_test = dsets.CIFAR10(root='../data/cifar10/cifar10_test',
                                     train=False,
                                     transform=transform,
                                     download=True)
@@ -248,6 +248,7 @@ def get_loader(dataset, batchsize, world_size, rank):
                                             batch_size=batchsize,
                                             shuffle=False,
                                             drop_last=True,
+                                            num_workers=4,
                                             sampler = DistributedSampler(dataset_train, num_replicas=world_size, rank=rank))
     data_loader_test = torch.utils.data.DataLoader(dataset=dataset_test,
                                                 batch_size=batchsize,

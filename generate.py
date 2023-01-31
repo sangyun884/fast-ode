@@ -41,6 +41,9 @@ def get_args():
     parser.add_argument('--config_de', type=str, default = None, help='Decoder config path, must be .json file')
     parser.add_argument('--config_en', type=str, default = None, help='Encoder config path, must be .json file')
     parser.add_argument('--seed', type=int, default=0, help='random seed')
+    parser.add_argument('--rtol', type=float, default=1e-5, help='rtol for RK45 solver')
+    parser.add_argument('--atol', type=float, default=1e-5, help='atol for RK45 solver')
+    
 
 
     arg = parser.parse_args()

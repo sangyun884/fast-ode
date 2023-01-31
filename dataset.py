@@ -18,7 +18,7 @@ class CelebAHQImgDataset(Dataset):
 
     def __getitem__(self, i):
         im_name = self.im_names[i]
-        img = Image.open(os.path.join(self.im_dir, im_name))
+        img = Image.open(im_name)
         img = self.transform(img)
         return img, 0
 
