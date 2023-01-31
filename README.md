@@ -9,7 +9,7 @@ This is the codebase for our paper Minimizing Trajectory Curvature of ODE-based 
 
 > <sup>1</sup>Soongsil University, <sup>2</sup>KAIST
 
-> Paper: https://arxiv.org/abs/coming-soon<br>
+> Paper: https://arxiv.org/abs/2301.12003<br>
 
 > **Abstract:** *Recent ODE/SDE-based generative models, such as diffusion models and flow matching, define a generative process as a time reversal of a fixed forward process. Even though these models show impressive performance on large-scale datasets, numerical simulation requires multiple evaluations of a neural network, leading to a slow sampling speed. We attribute the reason to the high curvature of the learned generative trajectories, as it is directly related to the truncation error of a numerical solver. Based on the relationship between the forward process and the curvature, here we present an efficient method of training the forward process to minimize the curvature of generative trajectories without any ODE/SDE simulation. Experiments show that our method achieves a lower curvature than previous models and, therefore, decreased sampling costs while maintaining competitive performance.*
 
@@ -73,5 +73,12 @@ We borrow some codes from the implementations of
 If you find this work useful for your research, please cite our paper:
 
 ```
-Coming soon
+@misc{lee2023minimizing,
+      title={Minimizing Trajectory Curvature of ODE-based Generative Models}, 
+      author={Sangyun Lee and Beomsu Kim and Jong Chul Ye},
+      year={2023},
+      eprint={2301.12003},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
 ```
