@@ -72,13 +72,11 @@ We borrow some codes from the implementations of
 
 If you find this work useful for your research, please cite our paper:
 
-```
-@misc{lee2023minimizing,
-      title={Minimizing Trajectory Curvature of ODE-based Generative Models}, 
-      author={Sangyun Lee and Beomsu Kim and Jong Chul Ye},
-      year={2023},
-      eprint={2301.12003},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+```bibtex
+@article{lee2023minimizing,
+  title={Minimizing Trajectory Curvature of ODE-based Generative Models},
+  author={Lee, Sangyun and Kim, Beomsu and Ye, Jong Chul},
+  journal={arXiv preprint arXiv:2301.12003},
+  year={2023}
 }
 ```
