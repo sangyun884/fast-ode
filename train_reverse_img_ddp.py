@@ -122,6 +122,9 @@ def train_rectified_flow(rank, rectified_flow, forward_model, optimizer, data_lo
             writer.add_scalar("loss_fm", loss_fm.item(), i)
             writer.add_scalar("loss_prior", loss_prior, i)
             writer.add_scalar("lr", optimizer.param_groups[0]['lr'], i)
+            # Log to .txt file
+            with open(os.path.join(dir, 'log.txt'), 'a') as f:
+                f.write(f"Iteration {i}: loss {loss:.8f}, loss_fm {loss_fm:.8f}, loss_prior {loss_prior:.8f}, lr {optimizer.param_groups[0]['lr']:.4f} \n")
 
         if i % 1000 == 1 and rank == 0:
             rectified_flow.model.eval()
@@ -208,7 +211,7 @@ def get_loader(dataset, batchsize, world_size, rank):
         transform = transforms.Compose([transforms.Resize((res, res)),
                                     transforms.ToTensor(),
                                     transforms.Normalize([0.5], [0.5])])
-        dataset_train = dsets.MNIST(root='..data/mnist/mnist_train',
+        dataset_train = dsets.MNIST(root='../data/mnist/mnist_train',
                                     train=True,
                                     transform=transform,
 

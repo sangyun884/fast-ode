@@ -76,6 +76,10 @@ def main(arg):
     flow_model = model_class(**config)
 
     device_ids = arg.gpu.split(',')
+    if arg.ckpt is not None:
+        flow_model.load_state_dict(torch.load(arg.ckpt, map_location = "cpu"))
+    else:
+        raise NotImplementedError("Model ckpt should be provided.")
     if len(device_ids) > 1:
         device = torch.device(f"cuda")
         print(f"Using {device_ids} GPUs!")
@@ -89,10 +93,7 @@ def main(arg):
     pytorch_total_params = pytorch_total_params / 1000000
     print(f"Total number of parameters: {pytorch_total_params}M")
 
-    if arg.ckpt is not None:
-        flow_model.load_state_dict(torch.load(arg.ckpt, map_location = "cpu"))
-    else:
-        raise NotImplementedError("Model ckpt should be provided.")
+    
     flow_model = flow_model.to(device)
 
 
