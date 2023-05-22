@@ -1,0 +1,30 @@
+{
+    "unet_type" : "songunet",
+    "img_resolution": 256,
+    "in_channels": 3,
+    "out_channels": 3,
+    "label_dim": 0,
+    "augment_dim": 0,
+    "model_channels": 128,
+    "channel_mult": [
+        1,
+        2,
+        2,
+        2
+    ],
+    "channel_mult_emb": 4,
+    "num_blocks": 4,
+    "attn_resolutions": [
+        16
+    ],
+    "dropout": 0.25,
+    "label_dropout": 0,
+    "embedding_type": "positional",
+    "channel_mult_noise": 1,
+    "encoder_type": "standard",
+    "decoder_type": "standard",
+    "resample_filter": [
+        1,
+        1
+    ]
+}

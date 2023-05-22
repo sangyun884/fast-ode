@@ -62,7 +62,7 @@ def get_args():
 
     arg = parser.parse_args()
 
-    assert arg.dataset in ['cifar10', 'mnist', 'celebahq']
+    assert arg.dataset in ['cifar10', 'mnist', 'celebahq', 'celebahq256', 'ffhq', 'afhq']
     arg.use_ema = not arg.no_ema
     return arg
 
@@ -224,10 +224,39 @@ def get_loader(dataset, batchsize, world_size, rank):
         input_nc = 3
         res = 64
         transform = transforms.Compose([transforms.Resize((res, res)),
+                                    transforms.RandomHorizontalFlip(),
                                     transforms.ToTensor(),
                                     transforms.Normalize([0.5], [0.5])])
         dataset_train = CelebAHQImgDataset(res, im_dir = '../data/CelebAMask-HQ/CelebA-HQ-img-train-64', transform = transform)
         dataset_test = CelebAHQImgDataset(res, im_dir = '../data/CelebAMask-HQ/CelebA-HQ-img-test-64', transform = transform)
+    elif dataset == 'celebahq256':
+        input_nc = 3
+        res = 256
+        transform = transforms.Compose([transforms.Resize((res, res)),
+                                    transforms.RandomHorizontalFlip(),
+                                    transforms.ToTensor(),
+                                    transforms.Normalize([0.5], [0.5])])
+        dataset_train = CelebAHQImgDataset(res, im_dir = '/mnt/hdd-nfs/sangyun/celebahq256', transform = transform)
+        dataset_test = CelebAHQImgDataset(res, im_dir = '/mnt/hdd-nfs/sangyun/celebahq256-test', transform = transform)
+    elif dataset == 'ffhq':
+        input_nc = 3
+        res = 64
+        transform = transforms.Compose([transforms.Resize((res, res)),
+                                    transforms.RandomHorizontalFlip(),
+                                    transforms.ToTensor(),
+                                    transforms.Normalize([0.5], [0.5])])
+        dataset_train = CelebAHQImgDataset(res, im_dir = '/mnt/hdd-nfs/sangyun/FFHQ_64', transform = transform)
+        dataset_test = CelebAHQImgDataset(res, im_dir = '/mnt/hdd-nfs/sangyun/FFHQ_64_test', transform = transform)
+    elif dataset == 'afhq':
+        input_nc = 3
+        res = 64
+        transform = transforms.Compose([transforms.Resize((res, res)),
+                                    transforms.RandomHorizontalFlip(),
+                                    transforms.ToTensor(),
+                                    transforms.Normalize([0.5], [0.5])])
+        dataset_train = CelebAHQImgDataset(res, im_dir = '/mnt/hdd-nfs/sangyun/afhq-v2-64', transform = transform)
+        dataset_test = CelebAHQImgDataset(res, im_dir = '/mnt/hdd-nfs/sangyun/afhq-v2-64-test', transform = transform)
+    
     elif dataset == 'cifar10':
         input_nc = 3
         res = 32
