@@ -62,7 +62,7 @@ python fid.py calc --images=runs\reverse\cifar10-learned-beta10-smallE\300000-N1
 CIFAR-10 training roughly takes 9 days on 2x1080Ti.
 
 
-## Pre-trained modeles and configurations
+## Pre-trained models and configurations
 AFHQ 64: [link](https://drive.google.com/drive/folders/1PBeBhC0onqQ2L96_OBR6PxQlBf9A5HSA?usp=share_link)
 
 FFHQ 64: [link](https://drive.google.com/drive/folders/1RMpVSUWXKctN1_XPSkzuDfQ7GqSK5bj3?usp=share_link)
