@@ -52,6 +52,9 @@ python train_reverse_img_ddp.py --gpu 0,1,2,3,4,5,6,7 --dir runs/ffhq-beta20 --w
 python generate.py --gpu 0,1,2,3,4,5,6,7 --dir runs/ffhq-independent/200000-heun-N121/ --solver heun --N 121 --res 64 --input_nc 3 --num_samples 100 --ckpt runs/ffhq-independent/flow_model_200000_ema.pth --config_de configs/ffhq_de.json --batchsize 128 --save_traj;
 ```
 
+### Clarification: You don't need the encoder for generating samples!
+
+Even though there is `--encoder` option in `generate.py`, you can just set the encoder to `None`, which is the default behavior unless you explicitly provide the encoder checkpoint. This option can be useful for some experiments comparing generative performance with and without encoders (e.g., Figure 8 in the paper). Similarly, during training, we visualize samples from the encoder-prior just for visualization purposes. We can simply drop the encoder after training, just like in VAE, you drop the encoder after training. Intuitively, if $\int q_\phi (z|x) p(x) dx = p(z)$ (note that this does not mean $q_\phi (z|x)=p(z)$ ), using encoder doesn't make any difference. A large $\beta$ value imposes this marginal-matching constraint.
 
 
 ### Calcuate FID on cifar10
